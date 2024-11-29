@@ -1,7 +1,7 @@
 const sequelize = require("../.config/database");
 const DataTypes = require('sequelize');
 
-const Reservation = sequelize.define("", {
+const Reservation = sequelize.define("Reservation", {
     id : {
         type : DataTypes.STRING,
         primaryKey : true,
@@ -25,6 +25,8 @@ const Reservation = sequelize.define("", {
     time : {
         type : DataTypes.TIME
     },
+},{
+    tableName : "reservations"
 });
 
 module.exports = Reservation;
