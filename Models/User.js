@@ -26,6 +26,7 @@ const User = sequelize.define("User", {
     }
 },{
     tableName: "users",
+    timestamps : false,
     scopes: {
         vendor : {
             where: {role : 'vendor'}
@@ -37,6 +38,6 @@ const User = sequelize.define("User", {
             where : {role : "admin"}
         }
     }
-})
+});
 
 module.exports = {User};
