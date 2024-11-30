@@ -30,7 +30,8 @@ const Restaurant = sequelize.define("Restaurant", {
         type : DataTypes.STRING
     }
 }, {
-    tableName : "Restaurant"
+    tableName : "restaurants",
+    timestamps : false
 });
 
 module.exports = Restaurant;
