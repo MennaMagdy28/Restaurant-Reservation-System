@@ -62,3 +62,39 @@ CREATE TABLE Feedbacks(
     rating INT,
     notes TEXT
 );
+-- -------------------------------------------------------------------------------------------------
+-- insert data 
+INSERT INTO Users (username, email, password, role)
+VALUES 
+    ('admin', 'admin@admin.com', 'password123', 'admin'),
+    ('john_doe', 'john@example.com', 'password123', 'customer'),
+    ('jane_smith', 'jane@example.com', 'securepass', 'customer'),
+    ('vendor1', 'vendor1@example.com', 'vendorpass', 'vendor'),
+    ('vendor2', 'vendor2@example.com', 'vendorpass', 'vendor');
+
+INSERT INTO Restaurants (vendor_id, title, food_category, location, description, image)
+VALUES 
+    (3, 'Pizza Paradise', 'Italian', '123 Food Street', 'Best pizzas in town', 'image1.jpg'),
+    (4, 'Sushi World', 'Japanese', '456 Sushi Lane', 'Authentic sushi', 'image2.jpg');
+
+INSERT INTO Tables (restaurant_id, seat_num)
+VALUES 
+    (1, 4),
+    (1, 6),
+    (2, 2),
+    (2, 4);
+
+INSERT INTO Reservations (customer_id, restaurant_id, table_id, date, time)
+VALUES 
+    (1, 1, 1, '2024-12-01', '18:30:00'),
+    (2, 2, 3, '2024-12-02', '19:00:00');
+
+INSERT INTO Notifications (user_id, title, message)
+VALUES 
+    (1, 'Reservation Confirmation', 'Your reservation at Pizza Paradise is confirmed.'),
+    (2, 'Reservation Reminder', 'Reminder: Your reservation at Sushi World is tomorrow.');
+
+INSERT INTO Feedbacks (reservation_id, rating, notes)
+VALUES 
+    ((SELECT id FROM Reservations WHERE customer_id = 1 LIMIT 1), 5, 'Amazing pizza!'),
+    ((SELECT id FROM Reservations WHERE customer_id = 2 LIMIT 1), 4, 'Great sushi, but a bit pricey.');
