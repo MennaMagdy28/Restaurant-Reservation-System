@@ -33,7 +33,7 @@ CREATE TABLE Tables(
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 CREATE TABLE Reservations(
-    id VARCHAR(50) PRIMARY KEY,
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     customer_id BIGINT,
     Foreign Key (customer_id) REFERENCES Users(id),
     restaurant_id BIGINT,
@@ -57,7 +57,7 @@ CREATE TABLE Notifications(
 
 CREATE TABLE Feedbacks(
     id SERIAL PRIMARY KEY,
-    reservation_id VARCHAR(50),
+    reservation_id UUID,
     Foreign Key (reservation_id) REFERENCES Reservations(id),
     rating INT,
     notes TEXT
