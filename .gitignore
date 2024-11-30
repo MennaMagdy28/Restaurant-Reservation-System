@@ -1,8 +1,8 @@
 #config folder
-.config
+/.config
 
 # Dependency directories
-node_modules
+/node_modules
 
 # dotenv environment variable files
-.env
+/.env
