@@ -18,6 +18,10 @@ const Feedback = sequelize.define("Feedback", {
     notes : {
         type : DataTypes.STRING,
         allowNull : true
+    },
+    is_visible : {
+        type : DataTypes.BOOLEAN,
+        allowNull : false
     }
 }, {
     tableName: "feedbacks",
