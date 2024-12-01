@@ -98,3 +98,17 @@ INSERT INTO Feedbacks (reservation_id, rating, notes)
 VALUES 
     ((SELECT id FROM Reservations WHERE customer_id = 1 LIMIT 1), 5, 'Amazing pizza!'),
     ((SELECT id FROM Reservations WHERE customer_id = 2 LIMIT 1), 4, 'Great sushi, but a bit pricey.');
+
+------------------------------------------------------------------------------------------------------------------------
+-- Edit on relations
+
+ALTER TABLE Feedbacks
+ADD CONSTRAINT reservation_id UNIQUE (reservation_id);
+
+ALTER TABLE Feedbacks
+ADD COLUMN is_visible BOOLEAN DEFAULT TRUE;
+
+--if running the code is done after the insertions only
+UPDATE Feedbacks
+SET is_visible = TRUE
+WHERE is_visible IS NULL;
