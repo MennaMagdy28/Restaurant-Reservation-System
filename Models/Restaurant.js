@@ -26,12 +26,13 @@ const Restaurant = sequelize.define("Restaurant", {
     description : {
         type : DataTypes.STRING
     },
-    Image : {
+    image : {
         type : DataTypes.STRING
     }
 }, {
     tableName : "restaurants",
     timestamps : false
 });
+
 
 module.exports = Restaurant;
