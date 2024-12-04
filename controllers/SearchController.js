@@ -3,11 +3,11 @@ const Restaurant = require("../Models/Restaurant");
 
 //search for the restaurant by selecting a category
 const searchByCategory = async (req, res) => {
-  const { food_category } = req.body;
+  const { q } =  req.params;
   //fetching restaurants data
   try {
     const restaurants = await Restaurant.findAll({
-      where: { food_category },
+      where: { food_category:q },
     });
     return res.status(200).json({restaurants});
   }
@@ -20,14 +20,14 @@ const searchByCategory = async (req, res) => {
 
 //to search by the name and show the most relevant results
 const searchByName = async (req, res) => {
-    const { title_search } = req.body;
+    const { q } = req.params;;
     //check for the most relevant results to the title given
     try {
         const restaurants = await Restaurant.findAll({
             //get all restaurants which have the title_search as substring in the title
             where: {
                 title: {
-                    [Op.like]: `%${title_search}%`
+                    [Op.like]: `%${q}%`
                 }
             },
             //fetch only needed data for search results
@@ -36,7 +36,7 @@ const searchByName = async (req, res) => {
                 'title',
                 'food_category',
                 'location',
-                [Sequelize.fn('POSITION', Sequelize.literal(`'${title_search}' IN title`)), 'relevance']
+                [Sequelize.fn('POSITION', Sequelize.literal(`'${q}' IN title`)), 'relevance']
             ],
             //sort the results
             order: [[Sequelize.literal('relevance'), 'ASC']]
