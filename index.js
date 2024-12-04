@@ -18,6 +18,8 @@ app.use('/vendor',require('./Routes/vendorRoutes'));
 app.use('/reserv',require('./Routes/reservRoutes'));
 app.use('/search',require('./Routes/searchRoutes'))
 app.use('/feedback',require('./Routes/feedbackRoutes'));
+app.use('/restaurant', require('./Routes/restaurantRoutes'));
+app.use('/table', require('./Routes/tableRoutes'));
 
 const PORT = 3500;
 app.listen(PORT, () =>
