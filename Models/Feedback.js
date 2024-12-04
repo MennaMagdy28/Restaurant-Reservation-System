@@ -1,4 +1,3 @@
-const { toDefaultValue } = require("sequelize/lib/utils");
 const sequelize = require("../.config/database");
 const DataTypes = require('sequelize');
 
