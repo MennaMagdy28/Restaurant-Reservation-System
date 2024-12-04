@@ -27,7 +27,7 @@ const Reservation = sequelize.define("Reservation", {
     },
 },{
     tableName : "reservations",
-    timestamp : false
+    timestamps : false
 });
 
 module.exports = Reservation;
