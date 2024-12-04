@@ -1,3 +1,4 @@
+const { toDefaultValue } = require("sequelize/lib/utils");
 const sequelize = require("../.config/database");
 const DataTypes = require('sequelize');
 
@@ -21,6 +22,7 @@ const Feedback = sequelize.define("Feedback", {
     },
     is_visible : {
         type : DataTypes.BOOLEAN,
+        defaultValue: true,
         allowNull : false
     }
 }, {
