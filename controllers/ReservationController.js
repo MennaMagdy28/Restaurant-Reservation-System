@@ -1,26 +1,6 @@
 const { where } = require("sequelize");
 const Reservation = require("../Models/Reservation");
-
-// to check if there any table reserved already at the same specific time
-// Return a boolean
-const isReserved = async(table_id, date, time) => {
-    try {
-        //filtering reservations to find the table in those specific date and time
-        const conflicts = await Reservation.findOne({
-            where: {
-                table_id,
-                date,
-                time
-            }
-        });
-
-        return !!conflicts;
-    }
-    catch (err) {
-        console.error("The checking error : \n",err);
-        throw new Error("Error checking for the conflicts");
-    }
-}
+const {isReserved} = require("./TableController");
 
 //creating a new reservation after checking for conflicted reservations
 //Return response
@@ -51,7 +31,7 @@ const newReservation = async(req, res) => {
 // view the reservations that the customer made
 //Return json
 const viewCustomerReservations = async (req, res) => {
-    const {customer_id} = req.body;
+    const {customer_id} = req.params;
     try {
         //filtering the reservations by the customer id
         const reservations = await Reservation.findAll({
@@ -72,7 +52,7 @@ const viewCustomerReservations = async (req, res) => {
 //view the reservations of a specific restaurant (vendor pov)
 //return json
 const viewRestaurantReservations = async (req, res) => {
-    const {restaurant_id} = req.body;
+    const {restaurant_id} = req.params;
     try {
         // filtering the reservations by the restaurant id
         const reservations = await Reservation.findAll({
@@ -90,9 +70,30 @@ const viewRestaurantReservations = async (req, res) => {
     }
 };
 
+const getReservationById = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const reservation = await Reservation.findOne({ where: { id } });
+  
+      if (!reservation) {
+        return res.status(404).json({ message: 'Reservation not found' });
+      }
+  
+      res.status(200).json({
+        message: 'Reservation fetched successfully',
+        reservation,
+      });
+    } catch (err) {
+      res.status(500).json({
+        message: 'Error fetching reservation',
+        error: err.message,
+      });
+    }
+};
+
 // cancel the reservation (customer pov)
 const cancelReservation = async (req, res) => {
-    const {reservation_id} = req.body;
+    const {reservation_id} = req.params;
     try{
         //delete the reservation from the database
         await Reservation.destroy({
@@ -108,4 +109,4 @@ const cancelReservation = async (req, res) => {
     }
 };
 
-module.exports = {newReservation, viewCustomerReservations, viewRestaurantReservations, cancelReservation};
+module.exports = {newReservation, viewCustomerReservations, viewRestaurantReservations, getReservationById, cancelReservation};
