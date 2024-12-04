@@ -1,7 +1,11 @@
 const express = require("express");
-const {login , register} = require('./controllers/userAuth');
-const goodReq = require('./middleware/validateLoginRequests');
 const bodyParser = require('body-parser');
+
+//middlewares
+const goodReq = require('./middleware/validateLoginRequests');
+
+// controllers
+const {login , register} = require('./controllers/userAuth');
 
 const app = express();
 
@@ -10,6 +14,7 @@ app.get('/',(req,res)=>res.send('hello'))
 app.post('/login', [goodReq,login,]);
 app.post('/register',[goodReq,register])
 
+app.use('/vendor',require('./Routes/vendorRoutes'))
 
 const PORT = 3500;
 app.listen(PORT, () =>
