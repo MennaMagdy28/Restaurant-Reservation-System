@@ -52,8 +52,8 @@ const viewCustomerReservations = async (req, res) => {
 //view the reservations of a specific restaurant (vendor pov)
 //return json
 const viewRestaurantReservations = async (req, res) => {
-    const {restaurant_id} = req.params;
-    try {
+    const { restaurant_id } = req.params;
+    try { 
         // filtering the reservations by the restaurant id
         const reservations = await Reservation.findAll({
             where: {
@@ -93,12 +93,12 @@ const getReservationById = async (req, res) => {
 
 // cancel the reservation (customer pov)
 const cancelReservation = async (req, res) => {
-    const {reservation_id} = req.params;
+    const {id} = req.params;
     try{
         //delete the reservation from the database
         await Reservation.destroy({
             where: {
-                id : reservation_id
+                id
             }
         })
         return res.status(200).json({message : "The reservation is cancelled successfully!"});

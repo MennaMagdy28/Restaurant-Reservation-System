@@ -32,8 +32,8 @@ const submitFeedback = async(req, res) => {
             reservation_id,
             rating,
             notes
-        })
-        return res.status(201).json({message: "Your feedback is submitted successfully!"}, feedback);
+            })
+        return res.status(201).json({message: "Your feedback is submitted successfully!", feedback});
     }
     catch (err) {
         console.error("The checking error : \n",err);
@@ -43,13 +43,13 @@ const submitFeedback = async(req, res) => {
 
 //delete feedback from the interface but keep it in database to prevent editing feedbacks by deleting and submitting new
 const deleteFeedback = async(req, res) => {
-    const {feedback_id}  = req.body;
+    const {id} = req.params;
 
     // making the feedback not visible
     try {
         await Feedback.update(
             {is_visible : false},
-            {where : {id : feedback_id}}
+            {where : {id : id}}
         )
         return res.status(200).json({message : "The feedback is deleted successfully!"});
     }
