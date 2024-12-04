@@ -14,8 +14,9 @@ app.get('/',(req,res)=>res.send('hello'))
 app.post('/login', [goodReq,login,]);
 app.post('/register',[goodReq,register])
 
-app.use('/vendor',require('./Routes/vendorRoutes'))
-
+app.use('/vendor',require('./Routes/vendorRoutes'));
+app.use('/reserv',require('./Routes/reservRoutes'));
+ 
 const PORT = 3500;
 app.listen(PORT, () =>
     console.log(`server running on :\n http://localhost:${PORT}/`)
