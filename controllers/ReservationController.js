@@ -21,7 +21,7 @@ const newReservation = async(req, res) => {
             date,
             time
         })
-        global.wsServer.emit('book Table', reservation);
+        // global.wsServer.emit('book Table', reservation);
         // wsServer.to(restaurant_id.toString()).emit('BookTable', reservation);
         return res.status(201).json({message : "The reservation is created successfully!", reservation});
     }

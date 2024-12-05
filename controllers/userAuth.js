@@ -40,41 +40,46 @@ const register = async(req, res) => {
         }
     };
 
-const login = async (req, res) => {
-    const { email, password } = req.body;
-    try {
-        const userInfo = await User.findOne({ where: { email: email } });
-        if (!userInfo) return res.status(404).json({ msg: "user not found" });
-        if (userInfo.password !== password)
-            return res.status(401).json({ msg: "Wrong Password" });
-        const userToken = jwt.sign({
-            userInfo: {
-                userId: userInfo.id,
-                username: userInfo.username,
-                role: userInfo.role,
-            },
-        }, 
-        process.env.TOKEN_SECRET,
-        { expiresIn: "1h" }
-    );
+    const login = async (req, res) => {
+        const { email, password } = req.body;
+        try {
+            const userInfo = await User.findOne({ where: { email: email } });
+            
+            if (!userInfo) return res.status(404).json({ msg: "User not found" });
     
-    res.cookie("token", userToken, {
-        httpOnly: true,   
-        maxAge: 3600000 
-    });
-
-    res.status(200).json({
-        message: "Login successful",
-        user: {
-            id: userInfo.id,
-            username: userInfo.username,
-            role: userInfo.role
+            if (userInfo.password !== password)
+                return res.status(401).json({ msg: "Wrong password" });
+    
+            const userToken = jwt.sign(
+                {
+                    userInfo: {
+                        userId: userInfo.id,
+                        username: userInfo.username,
+                        role: userInfo.role,
+                    },
+                },
+                process.env.TOKEN_SECRET,
+                { expiresIn: "24h" }
+            );
+    
+            res.cookie("token", userToken, {
+                httpOnly: true,
+                maxAge: 86400000
+                });
+    
+            res.status(200).json({
+                message: "Login successful",
+                user: {
+                    id: userInfo.id,
+                    username: userInfo.username,
+                    role: userInfo.role,
+                },
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ msg: "Server error!" });
         }
-    });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ msg: "server error!!!" });
-    }
-};
+    };
+    
 
 module.exports = { register, login };
