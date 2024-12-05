@@ -3,8 +3,10 @@ const { submitFeedback, deleteFeedback } = require('../controllers/FeedbackContr
 
 const router = express.Router();
 
-router.post('/', submitFeedback);
+router.use(require('../middleware/verifyJWT'));
+router.use(require('../middleware/checkCustomerRole'))
 
+router.post('/', submitFeedback);
 router.delete('/:id', deleteFeedback);
 
 module.exports = router;
