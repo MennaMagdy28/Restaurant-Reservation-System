@@ -53,7 +53,7 @@ const viewCustomerReservations = async (req, res) => {
 //return json
 const viewRestaurantReservations = async (req, res) => {
     const { restaurant_id } = req.params;
-    try { 
+    try {
         // filtering the reservations by the restaurant id
         const reservations = await Reservation.findAll({
             where: {
