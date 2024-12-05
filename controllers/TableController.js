@@ -1,6 +1,5 @@
 const Table = require('../Models/Table');
-
-
+const Reservation = require('../Models/Reservation') 
 // to check if there any table reserved already at the same specific time
 // Return a boolean
 const isReserved = async(table_id, date, time) => {
