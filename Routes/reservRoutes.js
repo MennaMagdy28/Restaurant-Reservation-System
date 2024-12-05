@@ -3,7 +3,7 @@ const reserv = require('../controllers/ReservationController');
 
 const router = express.Router()
 
-// costumor module 
+// customer module 
 router.post('/',reserv.newReservation);
 router.delete('/:id',reserv.cancelReservation)
 router.get('/customer/:customer_id',reserv.viewCustomerReservations)
