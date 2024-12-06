@@ -36,10 +36,11 @@ const searchByName = async (req, res) => {
                 'title',
                 'food_category',
                 'location',
-                [Sequelize.fn('POSITION', Sequelize.literal(`'${q}' IN title`)), 'relevance']
+                [Sequelize.fn('POSITION', Sequelize.literal(`:query IN title`)), 'relevance']
             ],
             //sort the results
-            order: [[Sequelize.literal('relevance'), 'ASC']]
+            order: [[Sequelize.literal('relevance'), 'ASC']],
+            replacements : { query: q }
         });
         if (restaurants.length === 0) {
             return res.status(404).json({ message: "No restaurants found" });
