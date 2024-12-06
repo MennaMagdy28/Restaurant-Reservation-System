@@ -1,6 +1,7 @@
 const { where } = require("sequelize");
 const Reservation = require("../Models/Reservation");
 const {isReserved} = require("./TableController");
+const { wsServer } = require('.././webSocket/webSocket');
 
 //creating a new reservation after checking for conflicted reservations
 //Return response
@@ -20,6 +21,8 @@ const newReservation = async(req, res) => {
             date,
             time
         })
+        // global.wsServer.emit('book Table', reservation);
+        // wsServer.to(restaurant_id.toString()).emit('BookTable', reservation);
         return res.status(201).json({message : "The reservation is created successfully!", reservation});
     }
     catch (err) {
