@@ -112,3 +112,6 @@ ADD COLUMN is_visible BOOLEAN DEFAULT TRUE;
 UPDATE Feedbacks
 SET is_visible = TRUE
 WHERE is_visible IS NULL;
+------------------------------------------------------------------------------------------------
+ALTER TABLE Feedbacks
+ADD COLUMN createdAt TIMESTAMP DEFAULT NOW();
