@@ -113,5 +113,15 @@ UPDATE Feedbacks
 SET is_visible = TRUE
 WHERE is_visible IS NULL;
 ------------------------------------------------------------------------------------------------
-ALTER TABLE Feedbacks
-ADD COLUMN createdAt TIMESTAMP DEFAULT NOW();
+DROP TABLE Feedbacks
+
+CREATE TABLE Reviews(
+    id SERIAL PRIMARY KEY,
+    restaurant_id BIGINT,
+    Foreign Key (restaurant_id) REFERENCES Restaurants(id)
+    ON DELETE CASCADE,
+    rating INT,
+    notes TEXT,
+    createdAt TIMESTAMP DEFAULT now(),
+    is_visible BOOLEAN DEFAULT TRUE
+);
