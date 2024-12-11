@@ -1,13 +1,13 @@
 const sequelize = require("../.config/database");
 const DataTypes = require('sequelize');
 
-const Feedback = sequelize.define("Feedback", {
+const Review = sequelize.define("Review", {
     id : {
         type : DataTypes.BIGINT,
         primaryKey : true,
         autoIncrement : true
     },
-    reservation_id : {
+    restaurant_id : {
         type : DataTypes.BIGINT,
         allowNull : false
     },
@@ -22,6 +22,10 @@ const Feedback = sequelize.define("Feedback", {
     is_visible : {
         type : DataTypes.BOOLEAN,
         defaultValue: true,
+        allowNull : false
+    },
+    createdAt : {
+        type : DataTypes.TIMESTAMP,
         allowNull : false
     }
 }, {
