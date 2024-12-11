@@ -125,3 +125,6 @@ CREATE TABLE Reviews(
     createdAt TIMESTAMP DEFAULT now(),
     is_visible BOOLEAN DEFAULT TRUE
 );
+
+ALTER table reviews
+add CONSTRAINT fk_cust Foreign Key (customer_id) REFERENCES users(id)
