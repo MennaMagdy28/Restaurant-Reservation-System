@@ -24,6 +24,11 @@ const Review = sequelize.define("Review", {
         defaultValue: true,
         allowNull : false
     },
+    customer_id : {
+        type: DataTypes.BIGINT,
+        allowNull: false
+    }
+    ,
     createdAt : {
         type : DataTypes.TIMESTAMP,
         allowNull : false
