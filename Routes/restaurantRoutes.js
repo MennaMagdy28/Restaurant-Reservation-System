@@ -1,6 +1,6 @@
 const express = require('express');
 const { addRestaurant, getAllRestaurants, getRestaurantById, updateRestaurant, deleteRestaurant, getCategories } = require('../controllers/RestaurantController');
-const checkAdminRole = require('../middleware/checkAdminRole');
+const checkVendorRole= require('../middleware/checkVendorRole');
 
 
 const router = express.Router();
@@ -9,8 +9,8 @@ router.get('/getCategories', getCategories);
 router.get('/', getAllRestaurants);
 router.get('/:id', getRestaurantById);
 
-router.post('/',checkAdminRole, addRestaurant);
-router.put('/:id',checkAdminRole,updateRestaurant);
-router.delete('/:id',checkAdminRole, deleteRestaurant);
+router.post('/',checkVendorRole, addRestaurant);
+router.put('/:id',checkVendorRole,updateRestaurant);
+router.delete('/:id',checkVendorRole, deleteRestaurant);
 
 module.exports = router;
