@@ -24,7 +24,7 @@ app.post('/register',[goodReq,register])
 app.use('/vendor',require('./Routes/vendorRoutes'));
 app.use('/reserv',require('./Routes/reservRoutes'));
 app.use('/search',require('./Routes/searchRoutes'))
-app.use('/feedback',require('./Routes/feedbackRoutes'));
+app.use('/review',require('./Routes/reviewRoutes'));
 app.use('/restaurant', require('./Routes/restaurantRoutes'));
 app.use('/table', require('./Routes/tableRoutes'));
 

@@ -29,13 +29,14 @@ const Review = sequelize.define("Review", {
         allowNull: false
     }
     ,
-    createdAt : {
-        type : DataTypes.TIMESTAMP,
-        allowNull : false
+    createdat : {
+        type : DataTypes.DATE,
+        allowNull : false,
+        defaultValue: DataTypes.NOW
     }
 }, {
-    tableName: "feedbacks",
+    tableName: "reviews",
     timestamps: false
 });
 
-module.exports = Feedback;
+module.exports = Review;

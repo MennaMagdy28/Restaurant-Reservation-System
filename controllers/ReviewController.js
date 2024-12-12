@@ -1,30 +1,25 @@
-const { where, Sequelize } = require("sequelize");
+const { where, Op, Sequelize } = require("sequelize");
 const Review = require("../Models/Review");
 const Reservation = require("../Models/Reservation");
-const { now } = require("sequelize/lib/utils");
-
+const moment = require('moment');
 //view reviews sorted by the time (the user's review on top)
 const getReviews = async(req, res) => {
     const {customer_id, restaurant_id} = req.body;
     try {
         const reviews = await Review.findAll({
             where: {
-                restaurant_id
+                restaurant_id,
+                is_visible: true
             },
             attributes: {
                 include: [
-                    [
-                    Sequelize.literal(`CASE WHEN customer_id = :customerID THEN 1 ELSE 0`),'userReview'
-                    ]
-                ]
-            },
-            order: [
-                [Sequelize.literal("userReview"),"DESC"],
-                ["createdAt","DESC"]
+                [Sequelize.literal(`CASE WHEN customer_id = ${customer_id} THEN 1 ELSE 0 END`),'userReview']
             ],
-            replacements: {
-                customerID : customer_id
-            }
+        },
+            order: [
+                [Sequelize.literal('"userReview"'),"DESC"],
+                ["createdat","DESC"]
+            ],
         })
         return res.status(200).json(reviews);
     }
@@ -37,14 +32,19 @@ const getReviews = async(req, res) => {
 //check if the Review for a specific reservation is already done to prevent spam/fake Reviews
 //Return: true if found. false otherwise
 const hasPreviousReservation = async(customer_id, restaurant_id)  => {
+    const now = moment();
     try {
-        const now = moment();
         const reservations = await Reservation.findAll({
             where: {
                 customer_id,
                 restaurant_id,
-                date: { [Op.lte]: now.format('YYYY-MM-DD') },
-                time: { [Op.lt]: now.format('HH:mm:ss') }
+                [Op.or]: [
+                    { date: { [Op.lt]: now.format('YYYY-MM-DD') } },
+                    {
+                      date: now.format('YYYY-MM-DD'),
+                      time: { [Op.lt]: now.format('HH:mm:ss') }
+                    }
+                  ]
             },
             order: [
                 ['date', 'desc'],
@@ -55,7 +55,7 @@ const hasPreviousReservation = async(customer_id, restaurant_id)  => {
     }
     catch (err) {
         console.error("The checking error : \n",err);
-        throw new Error("Error checking for Reservations");
+        throw new Error("Error Checking the previous reservations");
     }
 }
 
@@ -86,12 +86,13 @@ const submitReview = async(req, res) => {
 //update a Review that is already visible
 //return response message and  the edited review if succeeded
 const editReview = async(req, res) => {
-    const{review_id, rating, notes} = req.body;
+    const{review_id} = req.params;
+    const {rating, notes} = req.body;
     try {
         const newReview = await Review.update({
             rating,
             notes,
-            createdAt: Sequelize.NOW
+            createdat: Sequelize.literal('NOW()')
         }, {
             where: {
                 id: review_id
@@ -107,13 +108,13 @@ const editReview = async(req, res) => {
 
 //delete Review from the interface but keep it in database to prevent editing Reviews by deleting and submitting new
 const deleteReview = async(req, res) => {
-    const {id} = req.params;
+    const {review_id} = req.params;
 
     // making the Review not visible
     try {
         await Review.update(
             {is_visible : false},
-            {where : {id : id}}
+            {where : {id : review_id}}
         )
         return res.status(200).json({message : "The Review is deleted successfully!"});
     }
@@ -123,4 +124,4 @@ const deleteReview = async(req, res) => {
     }
 }
 
-module.exports = {submitReview, editReview,deleteReview};
+module.exports = {getReviews, submitReview, editReview,deleteReview, hasPreviousReservation};
