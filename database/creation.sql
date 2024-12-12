@@ -127,7 +127,7 @@ CREATE TABLE Reviews(
 );
 
 ALTER table reviews
-add COLUMN customer_id;
+add COLUMN customer_id BIGINT;
 
 ALTER table reviews
 add CONSTRAINT fk_cust Foreign Key (customer_id) REFERENCES users(id)
