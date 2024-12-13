@@ -1,0 +1,10 @@
+<div class="container">
+    <app-search-bar (searchResults)="onSearchResults($event)"></app-search-bar>
+    <div class="rest">
+        @for (item of restaurants; track $index) {
+            <app-restaurant-card [restaurant]="item"></app-restaurant-card>
+
+        }
+    </div>
+  </div>
+  
