@@ -1,0 +1,27 @@
+
+<div class="signup-page">
+    <div class="signup-container">
+      <div class="signup">
+        <h2>Sign Up</h2>
+        <form (submit)="onSubmit($event)">
+          <!-- <p *ngIf="err" class="alert alert-danger text-center rounded p-3 mb-3">
+            <i class="bi bi-exclamation-circle"></i> {{ err }}
+          </p> -->
+          <label for="username">Username</label>
+          <input type="text" id="username" #name (keyup)="setName(name.value)" placeholder="Your username">
+          
+          <label for="email">Email</label>
+          <input type="email" id="email" #email (keyup)="setEmail(email.value)" placeholder="test@atheros.ai">
+          
+          <label for="password">Password</label>
+          <input type="password" id="password" #password (keyup)="setPassword(password.value)" placeholder="******">
+          
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" #confirm_password (keyup)="setConfirmPassword(confirm_password.value)" placeholder="******">
+
+          <button type="submit" class="btn btn-signup">Sign Up</button>
+        </form>
+        <p>Already have an account? <a (click)="routeLogin()">Login Here</a></p>
+      </div>
+    </div>
+  </div>

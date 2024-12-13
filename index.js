@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-
+const cors = require('cors')
 const setupWebSocket = require('./webSocket/webSocket'); 
 const http = require("http");
 //middlewares
@@ -16,7 +16,13 @@ setupWebSocket(server)
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-
+const corsOptions = {
+    origin: 'http://localhost:4200',
+    credentials: true,               
+  };
+  
+  app.use(cors(corsOptions));
+  
 app.get('/',(req,res)=>res.send('hello'))
 app.post('/login', [goodReq,login,]);
 app.post('/register',[goodReq,register])
