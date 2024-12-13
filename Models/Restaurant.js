@@ -27,7 +27,8 @@ const Restaurant = sequelize.define("Restaurant", {
         type : DataTypes.STRING
     },
     image : {
-        type : DataTypes.STRING
+        type : DataTypes.STRING,
+        allowNull: true
     }
 }, {
     tableName : "restaurants",

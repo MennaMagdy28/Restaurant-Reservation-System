@@ -27,7 +27,7 @@ const searchByName = async (req, res) => {
             //get all restaurants which have the title_search as substring in the title
             where: {
                 title: {
-                    [Op.like]: `%${q}%`
+                    [Op.iLike]: `%${q}%`
                 }
             },
             //fetch only needed data for search results
@@ -36,6 +36,7 @@ const searchByName = async (req, res) => {
                 'title',
                 'food_category',
                 'location',
+                'image',
                 [Sequelize.fn('POSITION', Sequelize.literal(`:query IN title`)), 'relevance']
             ],
             //sort the results
