@@ -11,6 +11,10 @@
   "keywords": [],
   "description": "",
   "dependencies": {
+    "@angular/common": "^19.0.4",
+    "@angular/core": "^19.0.4",
+    "@angular/router": "^19.0.4",
+    "@types/jest": "^29.5.14",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
