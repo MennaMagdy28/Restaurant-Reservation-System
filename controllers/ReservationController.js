@@ -7,6 +7,14 @@ const { wsServer } = require('.././webSocket/webSocket');
 //Return response
 const newReservation = async(req, res) => {
     const {customer_id, restaurant_id, table_id, date, time} = req.body;
+
+    const reservationDateTime = new Date(`${date}T${time}`);
+    const now = new Date();
+    // Check if the reservation date and time are in the past
+    if (reservationDateTime < now) {
+        return res.status(400).json({ error: "Reservation date and time cannot be in the past" });
+    }
+    
     // checking for availability
     const conflicts = await isReserved(table_id, date, time);
     if (conflicts) {
