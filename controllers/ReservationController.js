@@ -1,43 +1,95 @@
 const { where } = require("sequelize");
 const Reservation = require("../Models/Reservation");
+const Customer = require('../Models/User');
+const Restaurant = require('../Models/Restaurant');
 const {isReserved} = require("./TableController");
 const { wsServer } = require('.././webSocket/webSocket');
+const nodemailer = require('nodemailer');
 
-//creating a new reservation after checking for conflicted reservations
-//Return response
-const newReservation = async(req, res) => {
-    const {customer_id, restaurant_id, table_id, date, time} = req.body;
 
+const newReservation = async (req, res) => {
+    const { customer_id, restaurant_id, table_id, date, time } = req.body;
+
+    // Check if the date and time are in the past
     const reservationDateTime = new Date(`${date}T${time}`);
-    const now = new Date();
-    // Check if the reservation date and time are in the past
-    if (reservationDateTime < now) {
-        return res.status(400).json({ error: "Reservation date and time cannot be in the past" });
+    const currentDateTime = new Date();
+    if (reservationDateTime < currentDateTime) {
+        return res.status(400).json({ error: "You cannot make a reservation in the past" });
     }
-    
-    // checking for availability
-    const conflicts = await isReserved(table_id, date, time);
-    if (conflicts) {
-        return res.status(400).json({error: "This table is unfortunately reserved"});
-    }
-    // creating the reservation
+
     try {
+        const customer = await Customer.findByPk(customer_id);
+        if (!customer) {
+            return res.status(404).json({ error: "Customer not found" });
+        }
+
+        const restaurant = await Restaurant.findByPk(restaurant_id); // Fetch restaurant details
+        if (!restaurant) {
+            return res.status(404).json({ error: "Restaurant not found" });
+        }
+
+        const customer_email = customer.email;
+        const restaurant_name = restaurant.title;
+
+        // Checking for availability
+        const conflicts = await isReserved(table_id, date, time);
+        if (conflicts) {
+            return res.status(400).json({ error: "This table is unfortunately reserved" });
+        }
+
+        // Creating the reservation
         const reservation = await Reservation.create({
             customer_id,
             restaurant_id,
             table_id,
             date,
             time
-        })
-        // global.wsServer.emit('book Table', reservation);
-        // wsServer.to(restaurant_id.toString()).emit('BookTable', reservation);
-        return res.status(201).json({message : "The reservation is created successfully!", reservation});
+        });
+        // Email Configuration
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+            },
+            pool: true,
+            debug: true,
+            logger: true
+        });
+
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: customer_email,
+            subject: 'Reservation Confirmation',
+            text: `Dear ${customer.username},
+
+Your reservation has been confirmed. Here are the details:
+- Restaurant Name: ${restaurant_name}
+- Table ID: ${table_id}
+- Date: ${date}
+- Time: ${time}
+
+Thank you for choosing us!
+
+Best regards,
+Restaurant Team`
+        };
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.error('Error sending email: ', error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+
+        return res.status(201).json({ message: "The reservation is created successfully!", reservation });
+    } catch (err) {
+        console.error("Error handling reservation: \n", err);
+        return res.status(500).json({ error: "Error creating the reservation" });
     }
-    catch (err) {
-        console.error("Creating reservation error : \n",err);
-        return res.status(500).json({error: "Error creating the reservation"});
-    }
-}
+};
 
 // view the reservations that the customer made
 //Return json
