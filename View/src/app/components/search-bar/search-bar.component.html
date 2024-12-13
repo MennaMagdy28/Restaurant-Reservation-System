@@ -1,0 +1,11 @@
+<div class="search-bar">
+    <input 
+      type="text" 
+      [(ngModel)]="searchQuery" 
+      placeholder="Search restaurants..." 
+      (keyup)="onKeyup($event)" 
+      class="search-input"
+    />
+    <button (click)="onSearch()" class="search-button">Search</button>
+  </div>
+  
