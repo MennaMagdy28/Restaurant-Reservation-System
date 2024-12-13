@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const register = async(req, res) => {
     const { email, password ,username} = req.body;
+    console.log(req.body)
     if(!username)
         return res.status(400).json({ msg: "username is required" });
     try{
