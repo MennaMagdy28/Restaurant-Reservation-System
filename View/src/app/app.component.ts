@@ -7,10 +7,11 @@ import { RestaurantCardComponent } from "./components/restaurant-card/restaurant
 import { SearchPageComponent } from "./layout/search-page/search-page.component";
 import { LoginComponent } from "./components/login/login.component";
 import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
+import { MyReservationsComponent } from "./components/my-reservations/my-reservations.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SignupComponent, HomePageComponent, SearchBarComponent, RestaurantCardComponent, SearchPageComponent, LoginComponent, NavBarComponent],
+  imports: [RouterOutlet, SignupComponent, HomePageComponent, SearchBarComponent, RestaurantCardComponent, SearchPageComponent, LoginComponent, NavBarComponent, MyReservationsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

@@ -1,0 +1,45 @@
+<!-- my-reservations.component.html -->
+<div class="container">
+  <!-- Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <div class="content">
+    <div class="breadcrumb">
+      <a href="#">Home</a> &gt; <a href="#">My Reservations</a>
+    </div>
+    <h2>My Reservations</h2>
+    
+    <ul class="orders">
+      @for (reservation of reservations; track $index) {
+        <li class="order-item">
+          <img [src]="reservation.restaurantLogo" alt="Restaurant Logo" height="50" width="50">
+          <div class="order-details">
+            <h4>{{ reservation.restaurantName }}</h4>
+            <p>{{ reservation.date }} {{ reservation.time }}</p>
+            <p>Order Id: {{ reservation.orderId }} <span class="status">{{ reservation.status }}</span></p>
+          </div>
+          <button class="view-details" (click)="openDetails(reservation)">
+            View Details
+          </button>
+        </li>
+      }
+      
+    </ul>
+  </div>
+
+  <!-- Reservation Details Modal -->
+   @if (isModalOpen) {
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h3>Reservation Details</h3>
+        <p><strong>Restaurant:</strong> {{ selectedReservation.restaurantName }}</p>
+        <p><strong>Name:</strong> {{ selectedReservation.name }}</p>
+        <p><strong>Date:</strong> {{ selectedReservation.date }}</p>
+        <p><strong>Time:</strong> {{ selectedReservation.time }}</p>
+        <p><strong>Email:</strong> {{ selectedReservation.email }}</p>
+        <p><strong>Number of Tables:</strong> {{ selectedReservation.tables }}</p>
+      </div>
+    </div>  
+   }
+</div>
