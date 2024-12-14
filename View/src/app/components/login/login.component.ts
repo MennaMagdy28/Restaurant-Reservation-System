@@ -34,7 +34,7 @@ export class LoginComponent {
     }
   }
   navigateToSignup(){
-    this.router.navigate(['register']);
+    this.router.navigate(['signup']);
     
   }
   setEmail(value: string): void {
