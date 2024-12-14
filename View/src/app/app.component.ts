@@ -17,5 +17,5 @@ import { MyReservationsComponent } from "./components/my-reservations/my-reserva
 })
 
 export class AppComponent{
-  title = 'Frontend';
+title = "(WTF) Where's the Food";
 }
