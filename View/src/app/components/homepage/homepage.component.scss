@@ -5,48 +5,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        header {
-            background-color: #FFD700;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        header .logo {
-            font-size: 28px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            font-family: 'Lobster', cursive;
-        }
-        header .logo i {
-            margin-right: 10px;
-        }
-        header nav {
-            display: flex;
-            align-items: center;
-            flex-grow: 1;
-            justify-content: space-between;
-            font-family: 'Open Sans', sans-serif;
-        }
-        header nav .left-links {
-            display: flex;
-            gap: 20px;
-            margin: 0 auto;
-        }
-        header nav .right-links {
-            display: flex;
-            gap: 20px;
-        }
-        header nav a {
-            text-decoration: none;
-            color: black;
-            font-weight: 500;
-            font-size: 18px;
-        }
-        header nav a:hover {
-            text-decoration: underline;
-        }
+        
         .hero {
             width: 100%;
             text-align: center;

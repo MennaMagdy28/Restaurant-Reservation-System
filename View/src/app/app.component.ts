@@ -6,10 +6,11 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { RestaurantCardComponent } from "./components/restaurant-card/restaurant-card.component";
 import { SearchPageComponent } from "./layout/search-page/search-page.component";
 import { LoginComponent } from "./components/login/login.component";
+import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SignupComponent, HomePageComponent, SearchBarComponent, RestaurantCardComponent, SearchPageComponent, LoginComponent],
+  imports: [RouterOutlet, SignupComponent, HomePageComponent, SearchBarComponent, RestaurantCardComponent, SearchPageComponent, LoginComponent, NavBarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
