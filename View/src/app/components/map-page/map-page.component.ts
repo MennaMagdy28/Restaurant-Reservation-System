@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 export const environment = {
-  googleMapsApiKey: '' 
+  googleMapsApiKey: 'AIzaSyB6Xr0KQ_nJN3JT_SfPB91eo0McmAPSTjY' 
 };
 import { GoogleMapsModule } from '@angular/google-maps';
 

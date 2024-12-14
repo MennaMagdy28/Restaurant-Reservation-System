@@ -1,0 +1,44 @@
+.restaurant-details{
+    display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 40px;
+  }
+  
+  .restaurant-image{
+      max-width: 300px;
+      border-radius: 10px;
+      overflow: hidden;
+  }
+  
+  .restaurant-image img{
+      max-width: 100%;
+      height: auto;
+      display: block;
+  }
+  .restaurant-name{
+     margin-bottom: 10px;
+  }
+  
+  .restaurant-rating{
+      margin-bottom: 10px;
+  }
+  
+  .star{
+    font-size: 24px;
+      color: #ffc107; /* Golden color for filled stars */
+  }
+  
+  .star.filled{
+      color: #ffc107;
+  }
+  
+  .restaurant-description{
+     margin-bottom: 10px;
+  }
+  
+  .restaurant-category{
+      font-weight: bold;
+      display: block;
+       margin-bottom: 10px;
+  }

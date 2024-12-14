@@ -1,0 +1,14 @@
+.content-area{
+    padding: 20px;
+    display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+  }
+  
+  .page-two{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }

@@ -1,0 +1,22 @@
+<div class="review-item">
+    <div class="review-header">
+      <div class="user-info">
+         <img [src]="review.reviewerImage" alt="Reviewer Image" class="reviewer-image">
+          <div class="user-details">
+             <span class="reviewer-name">{{ review.reviewerName }}</span>
+             <span class="review-date">{{ review.reviewDate }}</span>
+          </div>
+      </div>
+      <div class="user-rating">
+           <span class="star">☆</span>
+           <span class="star">☆</span>
+           <span class="star">☆</span>
+           <span class="star">☆</span>
+           <span class="star">☆</span>
+      </div>
+    </div>
+     <div class="review-body">
+      <h3 class="review-title">{{ review.reviewTitle }}</h3>
+      <p class="review-text">{{ review.reviewBody }}</p>
+      </div>
+  </div>
