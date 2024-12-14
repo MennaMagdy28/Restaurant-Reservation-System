@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-nav-bar',
@@ -8,8 +8,13 @@ import { UserService } from '../../services/user.service';
   styleUrl: './nav-bar.component.scss'
 })
 export class NavBarComponent {
-  constructor(private userservice:UserService){}
+  constructor(private userservice:UserService,private router: Router){}
+  
   get isLoggedIn(): boolean {
     return this.userservice.getLoginState();
+  }
+
+  logout(){
+    this.userservice.logout()
   }
 }

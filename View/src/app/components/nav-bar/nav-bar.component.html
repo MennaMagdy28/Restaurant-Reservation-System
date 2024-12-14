@@ -10,10 +10,15 @@
       <a routerLink="map">Map</a>
     </div>
     <div class="right-links">
-      <a routerLink="signup">Register</a>
-      <a routerLink="login">Log in</a>
       @if (isLoggedIn) {
         <a routerLink="my reservations">My Reservations</a>
+        <a (click)="logout()">Log out</a>
+
+      }
+      @else {
+        <a routerLink="signup">Register</a>
+        <a routerLink="login">Log in</a>
+        
       }
     </div>
   </nav>

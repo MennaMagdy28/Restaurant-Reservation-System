@@ -12,7 +12,6 @@ export class SignupComponent {
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
-  gender: string = 'm';
   err: string | null = null;
 
   constructor(private userService: UserService, private router: Router) {}
