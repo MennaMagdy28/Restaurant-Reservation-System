@@ -7,8 +7,8 @@ import { SignupComponent } from './components/signup/signup.component';
 import { MyReservationsComponent } from './components/my-reservations/my-reservations.component';
 
 export const routes: Routes = [
-  { path: '', component: HomePageComponent },
-  { path: 'search', component: SearchPageComponent },
+  { path:'', component: HomePageComponent },
+  { path:'search', component: SearchPageComponent },
   { path:'login' , component:LoginComponent},
   { path:'signup' , component:SignupComponent},
   { path:'my reservations',component:MyReservationsComponent}

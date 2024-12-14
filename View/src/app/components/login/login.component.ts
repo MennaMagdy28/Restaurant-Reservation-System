@@ -21,13 +21,22 @@ export class LoginComponent {
   //   }
   // }
 
-  async onSubmit(): Promise<void> {
+  async onSubmit(event: Event) {
+    event.preventDefault(); 
     const data = { email: this.email, password: this.password };
     console.log(`data ${data}`)
-    await this.userService.login(data);
-
+    try {
+      await this.userService.login(data);
+      this.router.navigate(['']);
+    } catch (error) {
+      this.err = 'Login failed. Please try again.';
+      console.error(error);
+    }
   }
-  
+  navigateToSignup(){
+    this.router.navigate(['register']);
+    
+  }
   setEmail(value: string): void {
     this.email = value;
   }
@@ -36,8 +45,4 @@ export class LoginComponent {
     this.password = value;
   }
 
-
-  routeSignup(): void {
-    this.router.navigate(['/register']);
-  }
 }
