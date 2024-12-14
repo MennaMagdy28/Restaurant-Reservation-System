@@ -1,0 +1,85 @@
+:root {
+    // --primary-color:;
+    --secondary-color: #ad343e;
+    --button-hover-color: #741f26;
+    --font: "DM Sans";
+  }
+  body {
+    font-family: var(--font);
+  }
+  .login-container {
+    display: flex;
+    height: 100vh;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    background: transparent; /* Transparent background */
+  }
+  
+  .login {
+    flex: 0 0 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    border-radius: 25px;
+  }
+  
+  .login h2 {
+    font-size: 2rem;
+    margin-bottom: 0rem;
+    color: #333; /* Ensures text remains visible */
+  }
+  
+  .login p {
+    margin-bottom: 1rem;
+    color: #555; /* Subtle text color */
+    text-align: center; /* Center align text */
+  }
+  
+  .login form {
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login form label {
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #333; /* Ensures label visibility */
+  }
+  .login form input {
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  .login .btn {
+    padding: 0.75rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    background-color: var(--secondary-color);
+    color: white;
+  }
+  .login .btn:hover {
+    background-color: var(--button-hover-color);
+  }
+  .login a:hover {
+    cursor: pointer;
+    color: #4a90e2;
+      text-decoration: none;
+      font-size: 0.85rem;       
+      margin-top: 0.6rem;
+  }
+  .login-right {
+    display: none; /* Hidden unless needed */
+  }
