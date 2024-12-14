@@ -43,7 +43,7 @@ export class UserService {
         localStorage.setItem('username', data.user.username);
         localStorage.setItem('role', data.user.role);
         this.isLoggedInSubject.next(true); 
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/');
       }
     })
     .catch(error => {

@@ -5,19 +5,18 @@
   </div>
   <nav>
     <div class="left-links">
-      <a routerLink="">Home</a>
-      <a routerLink="search">Search</a>
-      <a routerLink="map">Map</a>
+      <!-- Use (click) to navigate to the pages -->
+      <a (click)="navigateTo('')">Home</a>
+      <a (click)="navigateTo('search')">Search</a>
+      <a (click)="navigateTo('map')">Map</a>
     </div>
     <div class="right-links">
-      @if (isLoggedIn) {
-        <a routerLink="my reservations">My Reservations</a>
-        <a (click)="logout()">Log out</a>
-      }@else {
-        <a routerLink="signup">Register</a>
-        <a routerLink="login">Log in</a>
-        
-      }
+      <!-- Use (click) to navigate to the pages -->
+      <a *ngIf="isLoggedIn" (click)="navigateTo('my-reservations')">My Reservations</a>
+      <a *ngIf="isLoggedIn" (click)="logout()">Log out</a>
+      
+      <a *ngIf="!isLoggedIn" (click)="navigateTo('signup')">Register</a>
+      <a *ngIf="!isLoggedIn" (click)="navigateTo('login')">Log in</a>
     </div>
   </nav>
 </header>

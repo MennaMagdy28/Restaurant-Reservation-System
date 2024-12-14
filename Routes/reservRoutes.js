@@ -9,7 +9,8 @@ const router = express.Router()
 router.use(require('../middleware/verifyJWT.js'))
 // customer module 
 router.post('/',checkCustomerRole,reserv.newReservation);
-router.delete('/:id',checkCustomerRole,reserv.cancelReservation)
+router.delete('/:id',checkCustomerRole,reserv.cancelReservation);
+router.get('/:id',checkCustomerRole,reserv.getReservationById)
 router.get('/customer/:customer_id',checkCustomerRole,reserv.viewCustomerReservations)
 
 //vendor module

@@ -1,41 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ReservationService } from '../../services/reservation.service';
 
 @Component({
   selector: 'app-my-reservations',
   templateUrl: './my-reservations.component.html',
   styleUrls: ['./my-reservations.component.scss']
 })
-export class MyReservationsComponent {
-  // Sample reservation data
-  reservations = [
-    {
-      orderId: '1874368775',
-      restaurantName: 'City Crepe - Awlad Amer',
-      restaurantLogo: 'https://storage.googleapis.com/a1aa/image/ro4IR3uXvnaQDxeUhwzxJhaCN3SQ6aEP32RToqb6Jgshpx8JA.jpg',
-      date: '05 December 2024',
-      time: '12:03',
-      status: 'Delivered',
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      tables: 2
-    },
-    {
-      orderId: '1878161393',
-      restaurantName: 'City Crepe - Awlad Amer',
-      restaurantLogo: 'https://storage.googleapis.com/a1aa/image/ro4IR3uXvnaQDxeUhwzxJhaCN3SQ6aEP32RToqb6Jgshpx8JA.jpg',
-      date: '03 December 2024',
-      time: '15:14',
-      status: 'Delivered',
-      name: 'Jane Smith',
-      email: 'jane.smith@example.com',
-      tables: 3
-    },
-    // Add more reservations here
-  ];
+export class MyReservationsComponent implements OnInit {
 
-  // Modal state
-  isModalOpen = false;
-  selectedReservation: any;
+  reservations: any[] = []; // Declare the reservations as an array
+  isModalOpen = false; // Modal state
+  selectedReservation: any; // Store the selected reservation for modal
+
+  constructor(private reservationService: ReservationService) {}
+
+  async ngOnInit(): Promise<void> {
+    try {
+      const customerId = localStorage.getItem('userId');
+      if (customerId) {
+        const response = await this.reservationService.viewCustomerReservations(Number(customerId));
+        this.reservations = response.reservations || []; // Assuming 'reservations' is part of the response
+      }
+    } catch (error) {
+      console.error('Error fetching reservations:', error);
+    }
+  }
 
   // Open the modal with the selected reservation details
   openDetails(reservation: any) {

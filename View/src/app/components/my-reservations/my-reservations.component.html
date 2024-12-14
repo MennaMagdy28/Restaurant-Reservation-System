@@ -1,8 +1,4 @@
-<!-- my-reservations.component.html -->
 <div class="container">
-  <!-- Navbar Placeholder -->
-  <div id="navbar-placeholder"></div>
-
   <div class="content">
     <div class="breadcrumb">
       <a href="#">Home</a> &gt; <a href="#">My Reservations</a>
@@ -16,14 +12,12 @@
           <div class="order-details">
             <h4>{{ reservation.restaurantName }}</h4>
             <p>{{ reservation.date }} {{ reservation.time }}</p>
-            <p>Order Id: {{ reservation.orderId }} <span class="status">{{ reservation.status }}</span></p>
           </div>
           <button class="view-details" (click)="openDetails(reservation)">
             View Details
           </button>
         </li>
       }
-      
     </ul>
   </div>
 
@@ -40,6 +34,6 @@
         <p><strong>Email:</strong> {{ selectedReservation.email }}</p>
         <p><strong>Number of Tables:</strong> {{ selectedReservation.tables }}</p>
       </div>
-    </div>  
+    </div>
    }
 </div>
