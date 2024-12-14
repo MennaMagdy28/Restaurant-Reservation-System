@@ -1,13 +1,8 @@
 <div class="container">
   <div class="content">
-    <div class="breadcrumb">
-      <a href="#">Home</a> &gt; <a href="#">My Reservations</a>
-    </div>
-    <h2>My Reservations</h2>
-    
     <ul class="orders">
       @for (reservation of reservations; track $index) {
-        <li class="order-item">
+        <li class="order-item" >
           <img [src]="reservation.restaurantLogo" alt="Restaurant Logo" height="50" width="50">
           <div class="order-details">
             <h4>{{ reservation.restaurantName }}</h4>
@@ -27,12 +22,9 @@
       <div class="modal-content">
         <span class="close" (click)="closeModal()">&times;</span>
         <h3>Reservation Details</h3>
-        <p><strong>Restaurant:</strong> {{ selectedReservation.restaurantName }}</p>
-        <p><strong>Name:</strong> {{ selectedReservation.name }}</p>
-        <p><strong>Date:</strong> {{ selectedReservation.date }}</p>
-        <p><strong>Time:</strong> {{ selectedReservation.time }}</p>
-        <p><strong>Email:</strong> {{ selectedReservation.email }}</p>
-        <p><strong>Number of Tables:</strong> {{ selectedReservation.tables }}</p>
+        <p><strong>Restaurant:</strong> {{ selectedReservation?.restaurantName }}</p>
+        <p><strong>Date:</strong> {{ selectedReservation?.date }}</p>
+        <p><strong>Time:</strong> {{ selectedReservation?.time }}</p>
       </div>
     </div>
    }

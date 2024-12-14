@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ReservationService {
-  private apiUrl = 'http://localhost:3500/reserv'; // Change to your backend API URL
+  private apiUrl = 'http://localhost:3500/reserv'; 
 
   constructor() {}
 
