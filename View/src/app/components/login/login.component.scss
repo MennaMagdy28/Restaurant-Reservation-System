@@ -35,6 +35,7 @@
   }
   
   .login p {
+    padding-top: 100px;
     margin-bottom: 1rem;
     color: #555; /* Subtle text color */
     text-align: center; /* Center align text */
@@ -61,14 +62,22 @@
     background-color: rgba(255, 255, 255, 0.9);
   }
   .login .btn {
-    padding: 0.75rem;
-    margin-top: 1rem;
+    background-color: #FFD700;
+    color: black;
+    padding: 10px 30px;
     border: none;
-    border-radius: 20px;
+    border-radius: 50px;
     cursor: pointer;
-    font-size: 1rem;
-    background-color: var(--secondary-color);
-    color: white;
+    text-decoration: none;
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    /* display: flex
+; */
+    /* align-items: center; */
+
   }
   .login .btn:hover {
     background-color: var(--button-hover-color);

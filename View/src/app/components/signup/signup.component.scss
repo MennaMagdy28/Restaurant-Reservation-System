@@ -57,15 +57,18 @@
   
   .signup
    .btn-signup {
-    background-color: var(--secondary-color);
-    color: white;
-    padding: 0.5rem;
-    margin-top: 0.8rem;
+    background-color: #FFD700;
+    color: black;
+    padding: 10px 30px;
     border: none;
-    border-radius: 20px;
+    border-radius: 50px;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: background 0.3s ease;
+    text-decoration: none;
+    position: absolute;
+    top: 385px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
 }
   
   .signup
@@ -88,3 +91,9 @@
     text-decoration: underline;
   }
   
+  .signup p {
+    padding-top: 100px;
+    margin-bottom: 1rem;
+    color: #555; /* Subtle text color */
+    text-align: center; /* Center align text */
+  }
