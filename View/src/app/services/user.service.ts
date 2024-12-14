@@ -1,50 +1,46 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private url = 'http://localhost:3500'
-  constructor() { }
+  private url = 'http://localhost:3500'; 
+  private isLoggedIn = false;
+
+  constructor(private router: Router) {}
+
   login(loginData: { email: string; password: string }): Promise<any> {
     return fetch(`${this.url}/login`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include', // Ensure cookies are included
       body: JSON.stringify(loginData),
-      credentials: 'include' 
-        })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Login failed');
-        }
-        return response.json();
-      })
-      .then(data => {
-
-        if (data.userInfo) {
-          // Set the cookie
-          document.cookie = `authToken=${data.userInfo}; path=/; secure; HttpOnly; SameSite=Strict`;
-          console.log(`sasa + ${document.cookie}`)
-
-        }
-
-        return data;
-      })
-      .catch(error => {
-        console.error('Error during login:', error);
-        throw error;
-      });
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
+      this.isLoggedIn = true;
+      return response.json();
+    })
+    .then(data => {
+      console.log('Login successful:', data);
+      this.router.navigateByUrl('/home'); // Navigate to home on successful login
+      return data;
+    })
+    .catch(error => {
+      console.error('Error during login:', error);
+      throw error;
+    });
   }
-  signup(signupData: { username: string; email: string; password: string;}): Promise<any> {
+
+  signup(signupData: { username: string; email: string; password: string }): Promise<any> {
     return fetch(`${this.url}/register`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(signupData),
-      credentials: 'include'
     })
     .then(response => {
       if (!response.ok) {
@@ -53,15 +49,17 @@ export class UserService {
       return response.json();
     })
     .then(data => {
-      if (data.userInfo) {
-        document.cookie = `authToken=${data.userInfo}; path=/; secure; HttpOnly; SameSite=Strict`;
-        console.log(`Cookie set: ${document.cookie}`);
-      }
+      console.log('Signup successful:', data);
+      this.isLoggedIn = true;
       return data;
     })
     .catch(error => {
       console.error('Error during signup:', error);
       throw error;
     });
+  }
+
+  getLoginState(): boolean {
+    return this.isLoggedIn;
   }
 }

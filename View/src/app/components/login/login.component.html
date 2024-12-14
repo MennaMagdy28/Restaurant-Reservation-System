@@ -1,11 +1,13 @@
 <div class="login-container">
       <div class="login">
         <h2>Login</h2>
-        <form  (submit)="onSubmit()">
+        <form   (submit)="onSubmit()">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="test@atheros.ai">
+          <input type="email" id="email" #email (keyup)="setEmail(email.value)" placeholder="test@atheros.ai">
+          
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" placeholder="******">
+          <input type="password" id="password" #password (keyup)="setPassword(password.value)" placeholder="******">
+          
           <button type="submit" class="btn btn-signin">Sign In</button>
         </form>
         <p>Don't have an account? <a (click)="routeSignup()">Sign Up Now</a></p>

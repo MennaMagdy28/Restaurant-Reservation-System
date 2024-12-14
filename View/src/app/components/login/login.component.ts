@@ -23,9 +23,19 @@ export class LoginComponent {
 
   async onSubmit(): Promise<void> {
     const data = { email: this.email, password: this.password };
+    console.log(`data ${data}`)
     await this.userService.login(data);
-    
+
   }
+  
+  setEmail(value: string): void {
+    this.email = value;
+  }
+
+  setPassword(value: string): void {
+    this.password = value;
+  }
+
 
   routeSignup(): void {
     this.router.navigate(['/register']);

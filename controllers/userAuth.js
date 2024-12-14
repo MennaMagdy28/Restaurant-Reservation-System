@@ -67,7 +67,8 @@ const register = async(req, res) => {
                 httpOnly: true,
                 maxAge: 86400000
                 });
-    
+                console.log('in')
+
             res.status(200).json({
                 message: "Login successful",
                 user: {
