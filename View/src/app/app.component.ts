@@ -16,6 +16,6 @@ import { MyReservationsComponent } from "./components/my-reservations/my-reserva
   styleUrl: './app.component.scss'
 })
 
-export class AppComponent {
+export class AppComponent{
   title = 'Frontend';
 }

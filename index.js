@@ -14,19 +14,25 @@ const app = express();
 const server = http.createServer(app);
 setupWebSocket(server)
 
-app.use(bodyParser.json());
 app.use(cookieParser());
 const corsOptions = {
     origin: 'http://localhost:4200',
-    credentials: true,               
+    credentials: true,        
   };
   
   app.use(cors(corsOptions));
-  
-app.get('/',(req,res)=>res.send('hello'))
-app.post('/login', [goodReq,login,]);
-app.post('/register',[goodReq,register])
 
+
+  app.use(bodyParser.json());
+  app.get('/',(req,res)=>res.send('hello'))
+  app.post('/login', [goodReq,login,]);
+  
+  app.post('/register',[goodReq,register])
+  app.post('/logout', (req, res) => {
+    // Clear the cookie, even if there's no body
+    res.clearCookie("token", { httpOnly: true, path: '/' });
+    res.status(200).json({ message: "Logout successful" });
+  });
 app.use('/vendor',require('./Routes/vendorRoutes'));
 app.use('/reserv',require('./Routes/reservRoutes'));
 app.use('/search',require('./Routes/searchRoutes'))
