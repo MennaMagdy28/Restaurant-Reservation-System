@@ -1,20 +1,28 @@
-import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+
 @Component({
   selector: 'app-nav-bar',
-  imports: [RouterModule],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
 })
-export class NavBarComponent {
-  constructor(private userservice:UserService,private router: Router){}
-  
-  get isLoggedIn(): boolean {
-    return this.userservice.getLoginState();
+export class NavBarComponent implements OnInit {
+  isLoggedIn = false;
+
+  constructor(private userservice: UserService, private router: Router) {}
+
+  ngOnInit() {
+    this.userservice.getLoginState().subscribe(state => {
+      this.isLoggedIn = state; 
+    });
   }
 
-  logout(){
-    this.userservice.logout()
+  logout() {
+    this.userservice.logout().then(() => {
+      this.router.navigateByUrl('/login');
+    }).catch(error => {
+      console.error('Error during logout:', error);
+    });
   }
 }

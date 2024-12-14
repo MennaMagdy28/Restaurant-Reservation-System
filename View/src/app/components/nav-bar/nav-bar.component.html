@@ -13,9 +13,7 @@
       @if (isLoggedIn) {
         <a routerLink="my reservations">My Reservations</a>
         <a (click)="logout()">Log out</a>
-
-      }
-      @else {
+      }@else {
         <a routerLink="signup">Register</a>
         <a routerLink="login">Log in</a>
         
