@@ -12,13 +12,13 @@ const setupWebSocket = (server) =>{
       console.log('Received:', message);
       socket.emit('message', `Server received: ${message}`);
     });
-    
     socket.on('book Table',require('./bookTable'))
     socket.on('disconnect', () => {
       console.log('WebSocket connection closed.');
     });
-  });
 
+  }
+);
   console.log('Socket.io server is set up.');
 }
 
