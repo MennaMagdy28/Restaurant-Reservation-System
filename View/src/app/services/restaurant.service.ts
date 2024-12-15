@@ -67,7 +67,7 @@ export class RestaurantService {
   }
 
   async getCategories(): Promise<any> {
-    const response = await fetch(`${this.baseUrl}/categories`);
+    const response = await fetch(`${this.baseUrl}/getCategories`);
     if (!response.ok) {
       throw new Error('Failed to fetch categories');
     }

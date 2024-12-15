@@ -1,26 +1,24 @@
 <div class="content-area">
-    <div class="page-two">
-      <div class="restaurant-details">
-         <div class="restaurant-image">
-           <img src="assets/food_image.jpg" alt="Restaurant Image">
-         </div>
-         <div class="restaurant-info">
-           <h1 class="restaurant-name">RESTAURANT NAME</h1>
-           <div class="restaurant-rating">
-               <span class="star filled">★</span>
-               <span class="star filled">★</span>
-               <span class="star filled">★</span>
-               <span class="star filled">★</span>
-               <span class="star">☆</span>
-             </div>
-            <span class="restaurant-category">food category</span>
-            <p class="restaurant-description">
-                Lorem ipsum dolor sit amet, buttered toastus maximus. Sed do brunches tempor incididunt ut labore et dolce pancakes magna aliqua Lorem ipsum dolor sit amet, buttered toastus maximus. Sed do brunches tempor incididunt ut labore et dolce pancakes magna aliqua Lorem ipsum dolor sit amet, buttered toastus maximus. Sed do brunches tempor incididunt ut labore et dolce pancakes magna aliqua
-             </p>
-         </div>
-       
-       </div>
-      <app-reviews-section></app-reviews-section>
-      <app-button> Book a Table</app-button>
-   </div>
+  <div class="page-two">
+    <div class="restaurant-details">
+      <div class="restaurant-image">
+        <img [src]="restaurant.image" alt="Restaurant Image">
+      </div>
+      <div class="restaurant-info">
+        <h1 class="restaurant-name">{{ restaurant.title }}</h1>
+        <div class="restaurant-rating">
+          <!-- Example static stars, replace or calculate dynamically based on ratings if needed -->
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star filled">★</span>
+          <span class="star">☆</span>
+        </div>
+        <span class="restaurant-category">{{ restaurant.food_category }}</span>
+        <p class="restaurant-description">{{ restaurant.description }}</p>
+      </div>
+    </div>
+    <!-- <app-reviews-section></app-reviews-section> -->
+    <app-button>Book a Table</app-button>
+  </div>
 </div>

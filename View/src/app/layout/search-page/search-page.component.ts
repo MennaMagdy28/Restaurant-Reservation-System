@@ -3,6 +3,8 @@ import { SearchBarComponent } from '../../components/search-bar/search-bar.compo
 import { RestaurantCardComponent } from "../../components/restaurant-card/restaurant-card.component";
 import { RestaurantService } from '../../services/restaurant.service';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-search-page',
@@ -13,17 +15,28 @@ import { CommonModule } from '@angular/common';
 })
 export class SearchPageComponent implements OnInit {
   restaurants: any[] = []; 
-
-  constructor(private restserv: RestaurantService) {}
+  q:string='';
+  constructor(private searchService:SearchService,private restaurantService: RestaurantService,private route: ActivatedRoute) {}
 
   async ngOnInit(): Promise<void> {
-    try {
-      this.restaurants = await this.restserv.getAll(); 
-    } catch (error) {
-      console.error('Error loading restaurants:', error);
+    this.q = this.route.snapshot.paramMap.get('id') || '';
+
+    if (!this.q) {
+      try {
+        this.restaurants = await this.restaurantService.getAll(); 
+      } catch (error) {
+        console.error('Error loading restaurants:', error);
+      }
+    } else {
+      try {
+        this.restaurants = await this.searchService.searchByCategory(this.q); 
+        console.log(`q=${this.restaurants}`);
+      } catch (error) {
+        console.error('Error loading filtered restaurants:', error);
+      }
     }
   }
   onSearchResults(results: any[]): void {
-    this.restaurants = results;  // Update the displayed restaurants based on search results
+    this.restaurants = results;
   }
 }

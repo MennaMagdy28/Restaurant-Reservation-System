@@ -10,10 +10,11 @@ import { PageTwoComponent } from './layout/page-two/page-two.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
-  { path: 'search', component: SearchPageComponent },
+  // { path: 'search', component: SearchPageComponent },
+  { path: 'search/:id', component: SearchPageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'my-reservations', component: MyReservationsComponent },
   { path:'map',component:MapComponent},
-  {path:'test',component:PageTwoComponent}
+  { path: 'page-two/:id', component: PageTwoComponent },
 ];
