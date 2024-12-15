@@ -120,22 +120,32 @@ const getAvailable = async (req, res) => {
     const endDateTime = `${date} ${end_}`;
 
     const query = `
-      SELECT t.*
-      FROM Tables t
-      LEFT JOIN Timeslots ts ON t.id = ts.table_id
-        AND (ts.start >= '${endDateTime}' OR ts.end_ <= '${startDateTime}')
-      LEFT JOIN Reservations r ON t.id = r.table_id
-        AND (r.date != :date OR (r.time >= '${end_}' OR r.time <= '${start_time}'))
-      WHERE t.restaurant_id = :restaurant_id
-        AND t.seat_num >= :seat_num
-      GROUP BY t.id
-      HAVING COUNT(ts.table_id) = 0 AND COUNT(r.id) = 0;
+      SELECT
+          t.id AS table_id
+      FROM
+          Tables t
+      LEFT JOIN
+          timeslots ts ON t.id = ts.table_id
+      WHERE
+          t.restaurant_id = :restaurant_id
+          AND ts.start <= :start_time AND ts.end_ >= :end_
+          AND t.seat_num >= :seat_num
+          AND NOT EXISTS (
+            SELECT 1
+            FROM Reservations r2
+            WHERE r2.table_id = t.id
+              AND r2.date = :date
+              AND r2.time >= :start_time
+              AND r2.time < :end_
+  );
     `;
 
     const available = await sequelize.query(query, {
       replacements: {
         restaurant_id,
         seat_num,
+        start_time,
+        end_,
         date,
       },
       type: sequelize.QueryTypes.SELECT,
