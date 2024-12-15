@@ -133,4 +133,12 @@ ALTER table reviews
 add CONSTRAINT fk_cust Foreign Key (customer_id) REFERENCES users(id)
 
 
-DROP TABLE notifications
+create table timeslots(
+    table_id BIGINT,
+    start TIMESTAMP,
+    end_ TIMESTAMP,
+    Foreign Key (table_id) REFERENCES Tables(id)
+    ON DELETE CASCADE
+)
+
+
