@@ -142,3 +142,4 @@ create table timeslots(
 )
 
 
+insert into timeslots (table_id, start, end_) VALUES (1, "03:00:00", "05:00:00"),(1, "05:00:00", "07:00:00"), (2, "03:00:00", "05:00:00"),(2, "05:00:00", "07:00:00");

@@ -1,6 +1,7 @@
+const  sequelize  = require("../.config/database");
 const Table = require('../Models/Table');
 const Reservation = require('../Models/Reservation')
-const Timeslot = require("../Models/Timeslots");
+const Timeslots = require("../Models/Timeslots");
 const { where,Op, fn, col } = require('sequelize');
 // to check if there any table reserved already at the same specific time
 // Return a boolean
@@ -112,68 +113,43 @@ const getTimeslots = async (req, res) => {
 
 //for customer to view  available tables based on time slots
 const getAvailable = async (req, res) => {
-  const {seat_num, start_time, end_ ,date, restaurant_id} = req.body;
+  const { seat_num, start_time, end_, date, restaurant_id } = req.body;
 
-  try{
-    const startDateTime = new Date(`${date}T${start_time}`);
-    const endDateTime = new Date(`${date}T${end_}`);
-    const available = await Table.findAll({
-      where: {
+  try {
+    const startDateTime = `${date} ${start_time}`;
+    const endDateTime = `${date} ${end_}`;
+
+    const query = `
+      SELECT t.*
+      FROM Tables t
+      LEFT JOIN Timeslots ts ON t.id = ts.table_id
+        AND (ts.start >= '${endDateTime}' OR ts.end_ <= '${startDateTime}')
+      LEFT JOIN Reservations r ON t.id = r.table_id
+        AND (r.date != :date OR (r.time >= '${end_}' OR r.time <= '${start_time}'))
+      WHERE t.restaurant_id = :restaurant_id
+        AND t.seat_num >= :seat_num
+      GROUP BY t.id
+      HAVING COUNT(ts.table_id) = 0 AND COUNT(r.id) = 0;
+    `;
+
+    const available = await sequelize.query(query, {
+      replacements: {
         restaurant_id,
-        seat_num: { [Op.gte]: seat_num }, // Filter by seat number
+        seat_num,
+        date,
       },
-      includes: [
-        {
-          model: Timeslot,
-          required: false,
-          where: {
-            [Op.or]: [
-              { start: { [Op.gte]: endDateTime } },
-              { end_: { [Op.lte]: startDateTime } },
-            ],
-          },
-        },
-        {
-          model: Reservation,
-          required: false,
-          where: {
-            [Op.or]: [
-              { date: { [Op.ne]: date } },
-              {
-                time: {
-                  [Op.or]: [
-                    { [Op.gte]: endDateTime.toTimeString().slice(0, 8) },
-                    { [Op.lte]: startDateTime.toTimeString().slice(0, 8) },
-                  ],
-                },
-              },
-            ],
-          },
-        },
-      ],
-      having: [
-        where(
-          fn("COUNT", col("Timeslot.table_id")),
-          "=",
-          0
-        ),
-        where(
-          fn("COUNT", col("Reservation.table_id")),
-          "=",
-          0
-        ),
-      ],
-      group: ["Table.id"]
-    })
-    return res.status(201).json(available);
-  }
-  catch (err) {
+      type: sequelize.QueryTypes.SELECT,
+    });
+
+    return res.status(200).json(available);
+  } catch (err) {
     return res.status(500).json({
       message: 'Error fetching available tables',
       error: err.message,
     });
   }
-}
+};
+
 
 
 module.exports = { addTable, deleteTable, isReserved, getAvailable, getTables, getTimeslots };
