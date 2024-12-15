@@ -1,7 +1,7 @@
 const Table = require('../Models/Table');
 const Reservation = require('../Models/Reservation')
 const Timeslot = require("../Models/Timeslots");
-const { where , Op} = require('sequelize');
+const { where,Op, fn, col } = require('sequelize');
 // to check if there any table reserved already at the same specific time
 // Return a boolean
 const isReserved = async(table_id, date, time) => {
@@ -152,13 +152,13 @@ const getAvailable = async (req, res) => {
         },
       ],
       having: [
-        sequelize.where(
-          sequelize.fn("COUNT", sequelize.col("Timeslot.table_id")),
+        where(
+          fn("COUNT", col("Timeslot.table_id")),
           "=",
           0
         ),
-        sequelize.where(
-          sequelize.fn("COUNT", sequelize.col("Reservation.table_id")),
+        where(
+          fn("COUNT", col("Reservation.table_id")),
           "=",
           0
         ),
