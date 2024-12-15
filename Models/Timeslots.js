@@ -7,11 +7,11 @@ const Timeslot = sequelize.define("Timeslot", {
         allowNull : false
     },
     start :{
-        type : DataTypes.date,
+        type : DataTypes.TIME,
         allowNull : false
     },
     end_ :{
-        type : DataTypes.date,
+        type : DataTypes.TIME,
         allowNull: false
     }
 }, {
