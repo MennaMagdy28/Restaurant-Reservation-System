@@ -1,7 +1,7 @@
 const ws = require('socket.io');
 const setupWebSocket = (server) =>{
   global.wsServer = ws(server);
-  global.wsServer.use(require('./verifyJWT'));
+  // global.wsServer.use(require('./verifyJWT'));
 
   global.wsServer.on('connection', (socket) => {
     

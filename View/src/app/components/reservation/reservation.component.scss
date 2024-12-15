@@ -1,0 +1,70 @@
+.reservation-container {
+    display: flex;
+    gap: 2rem;
+    font-family: Arial, sans-serif;
+  }
+  
+  .seat-layout {
+    display: grid;
+    gap: 10px;
+  
+    .row {
+      display: flex;
+      gap: 10px;
+    }
+  
+    .seat {
+      width: 40px;
+      height: 40px;
+      background-color: #e0e0e0;
+      border: 1px solid #aaa;
+      cursor: pointer;
+      transition: background-color 0.3s;
+  
+      &.selected {
+        background-color: #4a90e2; // Highlight selected seat
+      }
+    }
+  }
+  
+  .reservation-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  
+    .guest-controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+  
+      button {
+        width: 30px;
+        height: 30px;
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+    }
+  
+    .time-slots {
+      display: flex;
+      gap: 1rem;
+  
+      button {
+        padding: 10px 15px;
+        background-color: #e0e0e0;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+  
+        &.active {
+          background-color: #4a90e2;
+          color: white;
+        }
+      }
+    }
+  }
+  
