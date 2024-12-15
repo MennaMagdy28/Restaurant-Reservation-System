@@ -9,9 +9,10 @@ import { LoginComponent } from "./components/login/login.component";
 import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 import { MyReservationsComponent } from "./components/my-reservations/my-reservations.component";
 import { ReviewsSectionComponent } from './layout/page-two/reviews-section/reviews-section.component';
+import { ReservationComponent } from "./components/reservation/reservation.component";
 @Component({
   selector: 'app-root',
-  imports: [ReviewsSectionComponent,RouterOutlet, SignupComponent, HomePageComponent, SearchBarComponent, RestaurantCardComponent, SearchPageComponent, LoginComponent, NavBarComponent, MyReservationsComponent],
+  imports: [ReviewsSectionComponent, RouterOutlet, SignupComponent, HomePageComponent, SearchBarComponent, RestaurantCardComponent, SearchPageComponent, LoginComponent, NavBarComponent, MyReservationsComponent, ReservationComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

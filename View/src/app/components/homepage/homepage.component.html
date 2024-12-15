@@ -11,23 +11,28 @@
 <section class="categories">
   <h2>Explore Restaurants By Categories</h2>
   <div class="category-list">
-    <div class="category-item" *ngFor="let category of categories">
-      <img [src]="category.image" [alt]="category.name + ' icon'" />
-      <h3>{{ category.name }}</h3>
-      <p>{{ category.description }}</p>
-    </div>
+    @for (category of categories; track $index) {
+      <div class="category-item" (click)="navigateToSearch(category.food_category)">
+        <img src="bg.png" [alt]="category.name + ' icon'" />
+        <h3>{{ category.food_category }}</h3>
+        <p>{{ category.description }}</p>
+      </div>
+    }
+    
   </div>
 </section>
 
 <section class="restaurants">
   <h2>Restaurants near you</h2>
   <div class="restaurant-list">
-    <div class="restaurant-item" *ngFor="let restaurant of restaurants">
-      <img [src]="restaurant.image" [alt]="restaurant.name + ' food'" />
-      <h3>{{ restaurant.name }}</h3>
-      <p>{{ restaurant.categories.join(', ') }}</p>
-      <p>{{ restaurant.location }}</p>
-    </div>
+    @for (restaurant of restaurants; track $index) {
+      <div class="restaurant-item" (click)="navigateToRestaurant(restaurant.id)">
+        <img [src]="restaurant.image" [alt]="restaurant.name + ' food'" />
+        <h3>{{ restaurant.title }}</h3>
+        <p>{{ restaurant.food_category }}</p>
+        <p>{{ restaurant.location }}</p>
+      </div>
+    }
   </div>
 </section>
 

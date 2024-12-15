@@ -1,6 +1,9 @@
 <section class="reviews-section">
     <h2 class="section-title">Latest reviews</h2>
     <div class="reviews-list">
-       <app-review-item *ngFor="let review of reviews" [review]="review"></app-review-item>
+        @for (review of reviews; track $index) {
+            <app-review-item [review]="review"></app-review-item>
+
+        }
     </div>
 </section>

@@ -1,0 +1,41 @@
+<div class="reservation-container">
+    <!-- Seats Layout -->
+    <div class="seat-layout">
+      <div class="row" *ngFor="let row of seatLayout; let i = index">
+        <div 
+          class="seat" 
+          *ngFor="let seat of row; let j = index"
+
+          [ngClass]="{'selected': selectedSeat.row === i && selectedSeat.col === j}"
+          (click)="selectSeat(i, j)"
+        >
+          <!-- Empty seat -->
+        </div>
+      </div>
+    </div>
+  
+    <!-- Reservation Details -->
+    <div class="reservation-details">
+      <h3>Amount of guests</h3>
+      <div class="guest-controls">
+        <button (click)="decrementGuests()">-</button>
+        <span>{{ guestCount }}</span>
+        <button (click)="incrementGuests()">+</button>
+      </div>
+  
+      <h3>Reservation date</h3>
+      <input type="date" [(ngModel)]="reservationDate" />
+  
+      <h3>Available time slots</h3>
+      <div class="time-slots">
+        <button 
+          *ngFor="let slot of timeSlots"
+          [ngClass]="{'active': slot === selectedTime}"
+          (click)="selectTime(slot)"
+        >
+          {{ slot }}
+        </button>
+      </div>
+    </div>
+  </div>
+  

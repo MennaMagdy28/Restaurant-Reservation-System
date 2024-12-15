@@ -45,6 +45,7 @@ const newReservation = async (req, res) => {
             date,
             time
         });
+        global.wsServer.emit('book Table',reservation);
         // Email Configuration
         const transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
@@ -83,7 +84,6 @@ Restaurant Team`
                     console.log('Email sent: ' + info.response);
                 }
             });
-
         return res.status(201).json({ message: "The reservation is created successfully!", reservation });
     } catch (err) {
         console.error("Error handling reservation: \n", err);
